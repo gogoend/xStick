@@ -1,0 +1,132 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <style>
+        html,
+        body,.scene{
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+        ul,li{
+            margin: 0;
+            list-style: none;
+        }
+
+        .cube {
+            position: absolute;
+            left: 30%;
+            top:20%;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            transform: rotateX(0.1deg);
+            perspective: 1600px;
+        }
+
+        .side {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            opacity: 0.6;
+        }
+
+        .back {
+            transform: translateZ(-100px);
+
+            background-color: aqua;
+        }
+
+        .left {
+            transform: translateX(-100px) rotateY(90deg);
+            background-color: red;
+        }
+
+        .right {
+            transform: translateX(100px) rotateY(90deg);
+            background-color: orange;
+        }
+
+        .top {
+            transform: translateY(-100px) rotateX(90deg);
+            background-color: green;
+        }
+
+        .bottom {
+            transform: translateY(100px) rotateX(90deg);
+            background-color: orchid;
+        }
+
+        .front {
+            transform: translateZ(100px);
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scene">
+        <ul data-role="target" class="cube" style="">
+            <li class="side back"></li>
+            <li class="side left"></li>
+            <li class="side right"></li>
+            <li class="side top"></li>
+            <li class="side bottom"></li>
+            <li class="side front"></li>
+        </ul>
+    </div>
+    <!-- <div class="outter" style="
+    position: absolute;
+    left: 30%;
+    top: 30%;
+    background-image:url('./stick_bg.svg');
+    border-radius:50%;
+    width: 500px;
+    height:500px;
+    background-color: rgba(0,0,0,0.5);">
+        <div class="inner" style="width: 200px;
+    height: 200px;
+    background-color: rgba(255,255,255,0.5);
+    position: absolute;
+    top: 150px;
+    left: 150px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    border-radius: 50%"></div>
+    </div> -->
+
+    <script src="./util.js"></script>
+    <script src="./stick.js"></script>
+    <script src="./three.js"></script>
+
+    <script>
+        //stick配置
+        var stickConfig = {
+            type:'translateXY',
+            zoneSize: 400,//外部尺寸
+            stickSize: 60,//内部尺寸
+            position: [null, 30, 30, null],//位置
+            target: document.querySelector('[data-role=target]'),//控制目标：DOM或THREE.Object3D
+            moveFactor: 0.4,//移动因数
+        }
+        var a = new Stick(stickConfig);
+
+
+
+        var stickConfig2 = {
+            type:'rotateY',
+            zoneSize: 150,//外部尺寸
+            stickSize: 40,//内部尺寸
+            position: [null, null, 30, 30],//位置
+            target: document.querySelector('[data-role=target]'),//控制目标：DOM或THREE.Object3D
+            moveFactor: 0.5,//移动因数
+        }
+        var b = new Stick(stickConfig2);
+
+    </script>
+</body>
+
+</html>

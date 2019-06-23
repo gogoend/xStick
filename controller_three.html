@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <script src="./three.js"></script>
+    <script src="./util.js"></script>
+    <script src="./stick.js"></script>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        var renderer = new THREE.WebGLRenderer({
+            "antialias":true
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        var geometry = new THREE.BoxGeometry(1, 1, 1);
+        var material = new THREE.MeshNormalMaterial();
+        var cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        var cube2 = new THREE.Mesh(geometry, material);
+        scene.add(cube2);
+        cube2.position.x=2;
+
+        var g=new THREE.Group();
+        g.add(camera);
+        scene.add(g);
+        g.position.z=5;
+
+        camera.lookAt(cube2.position);
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.onresize = function () {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        }
+
+        //stick配置
+        var stickConfig = {
+            type:'droneRCRight',
+            zoneSize: 400,//外部尺寸
+            stickSize: 60,//内部尺寸
+            position: [null, 30, 30, null],//位置
+            target: g,//控制目标：DOM或THREE.Object3D
+            moveFactor: 0.001,//移动因数
+        }
+        var a = new Stick(stickConfig);
+
+        var stickConfig2 = {
+            // type:'droneRCLeft',
+            type:'droneRCLeft',
+            zoneSize: 250,//外部尺寸
+            stickSize: 40,//内部尺寸
+            position: [null, null, 30, 30],//位置
+            target: g,//控制目标：DOM或THREE.Object3D
+            moveFactor: 0.0005,//移动因数
+        }
+        var a2 = new Stick(stickConfig2);
+
+
+    </script>
+</body>
+
+</html>
