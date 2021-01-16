@@ -502,8 +502,8 @@ Stick.prototype.eventTodo = function () {
                 // console.log('mousedown');
                 e.preventDefault();
 
-                document.body.addEventListener('mousemove', mouseHandler, false);
-                document.body.addEventListener('mouseup', mouseHandler, false);
+                document.addEventListener('mousemove', mouseHandler, false);
+                document.addEventListener('mouseup', mouseHandler, false);
                 break;
             };
             case 'touchmove':
@@ -529,24 +529,24 @@ Stick.prototype.eventTodo = function () {
                 // console.log('mouseup')
                 stick.style.left = _this.originX + 'px';
                 stick.style.top = _this.originY + 'px';
-                document.body.removeEventListener('mouseup', mouseHandler, false);
-                document.body.removeEventListener('mousemove', mouseHandler, false);
+                document.removeEventListener('mouseup', mouseHandler, false);
+                document.removeEventListener('mousemove', mouseHandler, false);
                 break;
             };
             case 'touchstart': {
                 e.preventDefault();
 
                 // console.log('mousedown');
-                document.body.addEventListener('touchmove', mouseHandler, false);
-                document.body.addEventListener('touchend', mouseHandler, false);
+                document.addEventListener('touchmove', mouseHandler, false);
+                document.addEventListener('touchend', mouseHandler, false);
                 break;
             };
             case 'touchend': {
                 console.log('mouseup')
                 stick.style.left = _this.originX + 'px';
                 stick.style.top = _this.originY + 'px';
-                document.body.removeEventListener('touchup', mouseHandler, false);
-                document.body.removeEventListener('touchmove', mouseHandler, false);
+                document.removeEventListener('touchup', mouseHandler, false);
+                document.removeEventListener('touchmove', mouseHandler, false);
                 break;
             };
         }
